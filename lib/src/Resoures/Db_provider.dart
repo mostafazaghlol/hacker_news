@@ -54,12 +54,16 @@ class NewsDbAPI implements Source,cache{
 
 
   Future<int> addItem(item_model item){
-    return Db.insert("items", item.toMapForDb());
+    return Db.insert("items", item.toMapForDb(),conflictAlgorithm: ConflictAlgorithm.ignore);
   }
 
   @override
   Future<List<int>> fetchTopIds() {
     return null;
+  }
+
+  Future<int> clear(){
+    return Db.delete('items');
   }
 }
 
